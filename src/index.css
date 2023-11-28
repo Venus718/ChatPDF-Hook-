@@ -72,3 +72,7 @@ button:focus-visible {
 @tailwind components;
 
 @tailwind utilities;
+
+.minH-70vh {
+  min-height: 80vh;
+}
