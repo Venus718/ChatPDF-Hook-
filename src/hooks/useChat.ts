@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import Axios from "../util/Axios";
 
 export interface ChatMessageType {
   role: "user" | "assistant";
@@ -32,13 +33,36 @@ export function useChat() {
 
   const sendMessage = (message: string, chatHistory: Array<ChatMessageType>) => {
     setState("waiting");
-    let chatContent = "";
+    // let chatContent = "";
     const newHistory = [
       ...chatHistory,
       { role: "user", content: message} as const,
     ];
 
     setChatHistory(newHistory);
+
+    const data = {
+      sourceId: "src_xxxxxx",
+      messages: [
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+    };
+
+    Axios.post("https://api.chatpdf.com/v1/chats/message", data)
+         .then((res) => {
+            console.log(res.data);
+            
+         })
+         .catch((err) => {
+            console.log(err);
+            
+         })
+
+
+    
   }
 
   return { sendMessage, currentChat, chatHistory, cancel, clear, state};
