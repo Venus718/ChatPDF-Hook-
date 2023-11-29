@@ -31,9 +31,8 @@ export function useChat() {
     setChatHistory([]);
   }
 
-  const sendMessage = (message: string, chatHistory: Array<ChatMessageType>) => {
+  const sendMessage = async (message: string, chatHistory: Array<ChatMessageType>) => {
     setState("waiting");
-    // let chatContent = "";
     const newHistory = [
       ...chatHistory,
       { role: "user", content: message} as const,
@@ -41,8 +40,15 @@ export function useChat() {
 
     setChatHistory(newHistory);
 
+    const data_pdf = {
+      url: "https://thejino.com/wp-content/uploads/2023/11/Reference_Ecommerce_Site.pdf",
+    };
+    
+    const response = await Axios
+      .post("https://api.chatpdf.com/v1/sources/add-url", data_pdf)
+
     const data = {
-      sourceId: "cha_HIkc9tc4Z8EFCpVjjc4Sl",
+      sourceId: response.data.sourceId,
       messages: [
         {
           role: "user",

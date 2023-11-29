@@ -4,7 +4,7 @@ import { useChat } from './hooks/useChat';
 import { ChatMessage } from './components/ChatMessage';
 
 function App() {
-  
+
   const [message, setMessage] = useState<string>("");
 
   const { currentChat, chatHistory, sendMessage, cancel, state, clear} = useChat();
