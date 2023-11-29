@@ -34,19 +34,27 @@ const CustomTable: FunctionComponent<
  * This component renders a single chat message. It is rendered according to
  * whether it isa  message from the assistant or the user.
  */
+const img = "https://i.pinimg.com/564x/0a/e2/ea/0ae2ea4ea9979f7cc346780b5474623a.jpg";
+const img_gpt = "./gpt.png";
 
 export const ChatMessage: React.FC<React.PropsWithChildren<Props>> = ({
   message,
 }) =>
   message.role === "user" ? (
     <div className="flex items-end justify-end">
-      <div className="bg-gray-300 border-gray-100 border-2 rounded-lg p-2 max-w-lg">
+      <div className="bg-[#6ccfcf] text-white border-gray-100 border-2 rounded-lg p-2 max-w-lg">
         <p>{message.content}</p>
+      </div>
+      <div id="avatar">
+        <img src={img} alt="logo" />
       </div>
     </div>
   ) : (
     <div className="flex items-end">
-      <div className="bg-gray-100 border-gray-300 border-2 rounded-lg p-2 mr-20 w-full">
+      <div id="avatar_gpt">
+        <img src={img_gpt} alt="logo" />
+      </div>
+      <div className="bg-[#18a800] text-white border-gray-300 border-2 rounded-lg p-2 mr-20 w-full">
         <ReactMarkdown
           children={message.content}
           remarkPlugins={[remarkGfm]}
