@@ -42,7 +42,7 @@ export function useChat() {
     setChatHistory(newHistory);
 
     const data = {
-      sourceId: "src_xxxxxx",
+      sourceId: "cha_HIkc9tc4Z8EFCpVjjc4Sl",
       messages: [
         {
           role: "user",
@@ -53,7 +53,15 @@ export function useChat() {
 
     Axios.post("https://api.chatpdf.com/v1/chats/message", data)
          .then((res) => {
-            console.log(res.data);
+            setState("loading");
+            if(res.data) {
+              setChatHistory((curr) => [
+                ...curr,
+                { role: "assistant", content: res.data.content } as const,
+              ]);
+              setCurrentChat(null);
+              setState("idle");
+            }
             
          })
          .catch((err) => {
